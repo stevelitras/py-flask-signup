@@ -65,6 +65,12 @@ class User(db.Model):
     previewAccess = db.Column(db.String(10))
     age = db.Column(db.Integer)
 
+class Blog(db.Model):
+    __tablename__ = 'blogs'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    author = db.Column(db.String(50))
+    post = db.Column(db.String(140))
+
 # Connect to DynamoDB and get ref to Table
 #ddb_conn = dynamodb2.connect_to_region(application.config['AWS_REGION'])
 #ddb_table = Table(table_name=application.config['STARTUP_SIGNUP_TABLE'],connection=ddb_conn)
@@ -140,6 +146,13 @@ def show_users():
     entries = User.query.all()
     theme = application.config['THEME']
     return flask.render_template('users.html', theme=theme, title='A New Startup - Registered Users', entries=entries)
+
+
+@application.route('/blog')
+def show_blog():
+    entries = Blog.query.all()
+    theme = application.config['THEME']
+    return flask.render_template('blog.html', theme=theme, title='A New Startup - Blog', posts=entries)
 
 
 @application.errorhandler(404)

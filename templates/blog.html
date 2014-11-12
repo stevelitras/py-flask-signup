@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1 align="center">A New Startup Blog</h1>
+    {% for blog in posts %}
+    <p align="center">{{ blog.author }} says: <b>{{ blog.post }}</b></p>
+    {% endfor %}
+{% endblock %}
